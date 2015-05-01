@@ -4,42 +4,52 @@ Feature: Manage List
   Should manage the pending task list, adding, removing and editing the existing tasks
 
   Background:
-    Given I have 4 tasks in my todoList
+     Given the system knows about the following tasks::
+      | title     | description                                             |
+      | ror       | Install ruby on rails                                   |
+      | bugs      | Fix the windows bug related                             |
+      | cucumber  | install cucumber gems                                   |
+      | reinstall | reinstall an older version due to another windows bug   |
+    
 
   Scenario: View current tasks
-    When I ask for the todoList
-    Then I should see 4 items
+    When the user performs a "GET" to "/todoitems.json"                        
+    Then response should be "200"                                   
+    And the JSON response should be:                                    
+      """
+      [{"title":"Instalar Ruby","description":"Install ruby on rails"},
+       {"title":"bugs","description":"Fix the windows bug related"},
+       {"title":"cucumber","description":"install cucumber gems"},
+       {"title":"reinstall","description":"reinstall an older version due to another windows bug"}]
+      """
 
   Scenario: Add a new task
-    When I add a new task
-    And I ask for the todoList
-    Then I should see 5 items 
-    And the last task is the new one
+    When the user performs a "POST" to "/todoitems.json" with body:
+    """ 
+    {"todoitem" : {"title":"new", "description":"task"} }
 
-  Scenario: Remove a task
-    When I remove a task
-    And I ask for the todoList
-    Then I should see 3 items
-    And The missing task is the removed one
+    """
+    Then response should be "201"                                   
+    And the JSON response should be:                                    
+      """
+      {"id":4,"title":"new","description":"task"}
+     """
 
-  Scenario: Edit a task
-    When I edit a task
-    And I ask for the todoList
-    Then I should see 4 items
-    And The edited task has been updated with the new values
 
-  Scenario: Mark a task as done
-  	Given I have a task marked as undone
-    When I check the undone task
-    And I ask for the todoList
-    Then I should see 4 items
-    And The checked task is shown as done
+ Scenario: Remove a new task
+    When the user performs a "DELETE" to "/todoitems/2.json" 
+    Then response should be "204"                                   
+    
 
-  Scenario: Mark a task as undone
-  	Given I have a task marked as done
-    When I uncheck the done task
-    And I ask for the todoList
-    Then I should see 4 items
-    And The unchecked task is shown as undone
+ Scenario: Edit a task
+   When the user performs a "POST" to "/todoitems/2.json" with body:
+    """ 
+    {"todoitem" : {"title":"updated", "description":"task updated"} }
+
+    """
+    Then response should be "302"                                   
+    
+
+ 
 
    

@@ -1,5 +1,7 @@
 class TodoitemsController < ApplicationController
   before_action :set_todoitem, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token  
+
 
   # GET /todoitems
   # GET /todoitems.json
