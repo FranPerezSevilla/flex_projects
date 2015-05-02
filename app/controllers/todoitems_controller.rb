@@ -21,29 +21,20 @@ class TodoitemsController < ApplicationController
   # POST /todoitems.json
   def create
     @todoitem = Todoitem.new(todoitem_params)
-
-    respond_to do |format|
       if @todoitem.save
-        format.html { redirect_to @todoitem, notice: 'Todoitem was successfully created.' }
-        format.json { render json: @todoitem, status: :created}
+        render json: @todoitem, status: :created
       else
-        format.html { render :new }
-        format.json { render json: @todoitem.errors, status: :unprocessable_entity }
+        render json: @todoitem.errors, status: :unprocessable_entity
       end
-    end
   end
 
   # PATCH/PUT /todoitems/1
   # PATCH/PUT /todoitems/1.json
   def update
-    respond_to do |format|
-      if @todoitem.update(todoitem_params)
-        format.html { redirect_to @todoitem, notice: 'Todoitem was successfully updated.' }
-        format.json { render :show, status: :accepted, location: @todoitem }
-      else
-        format.html { render :edit }
-        format.json { render json: @todoitem.errors, status: :unprocessable_entity }
-      end
+    if @todoitem.update(todoitem_params)
+       render :show, status: :accepted, location: @todoitem
+    else
+       render json: @todoitem.errors, status: :unprocessable_entity
     end
   end
 
@@ -51,10 +42,7 @@ class TodoitemsController < ApplicationController
   # DELETE /todoitems/1.json
   def destroy
     @todoitem.destroy
-    respond_to do |format|
-      format.html { redirect_to todoitems_url, notice: 'Todoitem was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private

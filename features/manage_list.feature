@@ -24,7 +24,7 @@ Feature: Manage List
       """
 
   Scenario: Add a new task
-    When the user performs a "POST" to "/todoitems.json" with body:
+    When the user performs a "POST" to "/todoitems" with body:
     """ 
     {"todoitem" : {"title":"new", "description":"task"} }
 
@@ -37,12 +37,12 @@ Feature: Manage List
 
 
  Scenario: Remove a new task
-    When the user performs a "DELETE" to "/todoitems/2.json" 
+    When the user performs a "DELETE" to "/todoitems/2" 
     Then response should be "204"                                   
     
 
  Scenario: Edit a task
-   When the user performs a "PUT" to "/todoitems/2.json" with body:
+   When the user performs a "PUT" to "/todoitems/2" with body:
     """ 
     {"todoitem" : {"title":"updated", "description":"task updated"} }
 

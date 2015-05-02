@@ -24,10 +24,10 @@ When(/^the user performs a "(.*?)" to "(.*?)" with body:$/) do |method, url, jso
   jsonToBeSent = JSON.parse(jsoncontent)
 
   if method == "POST"
-    puts "performing post"
+    #puts "performing post"
     post url, jsonToBeSent
   elsif method == "PUT"
-    puts "performing put"
+    #puts "performing put"
     put url, jsonToBeSent
   end
 
