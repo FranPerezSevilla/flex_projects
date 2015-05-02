@@ -7,22 +7,16 @@ class TodoitemsController < ApplicationController
   # GET /todoitems.json
   def index
     @todoitems = Todoitem.all
+    render json: @todoitems
   end
 
   # GET /todoitems/1
   # GET /todoitems/1.json
   def show
+    render json: @todoitem
   end
 
-  # GET /todoitems/new
-  def new
-    @todoitem = Todoitem.new
-  end
-
-  # GET /todoitems/1/edit
-  def edit
-  end
-
+  
   # POST /todoitems
   # POST /todoitems.json
   def create
@@ -31,7 +25,7 @@ class TodoitemsController < ApplicationController
     respond_to do |format|
       if @todoitem.save
         format.html { redirect_to @todoitem, notice: 'Todoitem was successfully created.' }
-        format.json { render :show, status: :created, location: @todoitem }
+        format.json { render json: @todoitem, status: :created}
       else
         format.html { render :new }
         format.json { render json: @todoitem.errors, status: :unprocessable_entity }
@@ -45,7 +39,7 @@ class TodoitemsController < ApplicationController
     respond_to do |format|
       if @todoitem.update(todoitem_params)
         format.html { redirect_to @todoitem, notice: 'Todoitem was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todoitem }
+        format.json { render :show, status: :accepted, location: @todoitem }
       else
         format.html { render :edit }
         format.json { render json: @todoitem.errors, status: :unprocessable_entity }

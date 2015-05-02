@@ -16,7 +16,7 @@ When(/^the user performs a "(.*?)" to "(.*?)"$/) do |method, url|
   if method == "GET"  
     get url
   elsif method == "DELETE"
-    delete path
+    delete url
   end
 end
 
@@ -24,9 +24,11 @@ When(/^the user performs a "(.*?)" to "(.*?)" with body:$/) do |method, url, jso
   jsonToBeSent = JSON.parse(jsoncontent)
 
   if method == "POST"
-    post path, jsonToBeSent
+    puts "performing post"
+    post url, jsonToBeSent
   elsif method == "PUT"
-    put path, jsonToBeSent
+    puts "performing put"
+    put url, jsonToBeSent
   end
 
 end
