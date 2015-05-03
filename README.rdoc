@@ -1,28 +1,41 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The present document intends to explain how to run the whole project.
 
-Things you may want to cover:
+If you run the present project you will have deployed on http://localhost:3000/restserver/ a JSON REST API for task managing.
+
 
 * Ruby version
+ruby 1.9.3p551 (2014-11-13)
 
 * System dependencies
+None
 
 * Configuration
+execute "bundle install" within the root path
 
 * Database creation
+NA
 
 * Database initialization
+NA
 
 * How to run the test suite
+execute "rake cucumber" within the root path
 
 * Services (job queues, cache servers, search engines, etc.)
+NA
 
 * Deployment instructions
+Just follow the following steps
+1)execute "bundle install"
+2)execute "rails server" , the resources are available at port 3000
 
-* ...
+* API methods
 
+GET  	/restserver/todoitems
+GET 	/restserver/todoitems/[index]
+PUT  	/restserver/todoitems/[index]
+DELETE	/restserver/todoitems/[index]
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Within the file "./features/manage_list.feature" there is more information about the JSON data to be posted in the PUT and DELETE methods
